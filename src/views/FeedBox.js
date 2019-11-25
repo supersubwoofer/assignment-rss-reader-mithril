@@ -20,8 +20,11 @@ var FeedBox = {
               m("span", {
                 class: feed.isFavourite===true? "icon favour oi oi-heart":"icon oi oi-heart",
                 onclick: function() { 
+                  console.log(`before accessing cookie: ${feed.isFavourite}`)
+                  feed.isFavourite === true? 
+                  FavouriteCookie.removeById(feed.guid):FavouriteCookie.add(feed.guid, feed.title)
+
                   feed.isFavourite = !feed.isFavourite
-                  console.log(`clicked on: ${feed.title}`)
                 }
               })
             ])
@@ -32,21 +35,39 @@ var FeedBox = {
   }
 }
 
+var FavouriteCookie = {
+  getAllFavourites: function() {
+    return document.cookie.replace(/(?:(?:^|.*;\s*)favorite-feeds\s*\=\s*([^;]*).*$)|^.*$/, "$1")
+  },
+  findIndexById: function(id) {
+  
+  },
+  add: function (name, title) {
+    //document.cookie = `favorite-feeds = [{"link":"1", "title":"test1"},{"link":"2", "title":"test2"}]`
+    var allFavourites = FavouriteCookie.getAllFavourites()
+    
+    if(allFavourites!==null && allFavourites!=="") {
+      favObj = JSON.parse(allFavourites)
+      favObj.push({"id": name, "title": title})
+      document.cookie = `favorite-feeds = ${JSON.stringify(favObj)}`
+    }
+    else {
+      document.cookie = `favorite-feeds = [{"id": "${name}", "title": "${title}"}]`
+    } 
+  },
+  removeById: function(id) {
+    console.log(`remove fav ${id}`)
+
+    var favObj;
+    var allFavourites = FavouriteCookie.getAllFavourites()
+    if(allFavourites!==null && allFavourites!=="") {
+      favObj = JSON.parse(allFavourites)
+      var filteredObj = favObj.filter(function(item){
+        return item.id!==id;         
+      });
+      document.cookie = `favorite-feeds = ${JSON.stringify(filteredObj)}`
+    }
+  }
+}
+
 module.exports = FeedBox
-
-
-/* <div class="col-md-4">
-<div class="card mb-4 shadow-sm">
-  <svg class="bd-placeholder-img card-img-top" width="100%" height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail"><title>Placeholder</title><rect width="100%" height="100%" fill="#55595c"></rect><text x="50%" y="50%" fill="#eceeef" dy=".3em">Thumbnail</text></svg>
-  <div class="card-body">
-    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-    <div class="d-flex justify-content-between align-items-center">
-      <div class="btn-group">
-        <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-        <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-      </div>
-      <small class="text-muted">9 mins</small>
-    </div>
-  </div>
-</div>
-</div> */
