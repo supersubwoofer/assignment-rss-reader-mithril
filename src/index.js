@@ -1,3 +1,3 @@
 var m = require("mithril")
 var MyComponent = require("./modules/mycomponent")
-m.render(document.body, MyComponent.view())
+m.render(document.getElementById('main-content'), MyComponent.view())
