@@ -1,6 +1,6 @@
 var m = require("mithril")
 
-var Splash = {
+var FavouriteList = {
   view: function() {
     return m("section", [
       m("h1", {class: "title"}, "Fav")
@@ -8,4 +8,4 @@ var Splash = {
   }
 }
 
-module.exports = Splash
+module.exports = FavouriteList

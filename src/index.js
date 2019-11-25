@@ -1,9 +1,9 @@
 var m = require("mithril")
 
-var home = require("./modules/feedlist")
-var splash = require("./modules/splash")
+var home = require("./views/FeedList")
+var favouriteList = require("./views/FavouriteList")
 
 m.route(document.getElementById('main-content'), "/home", {
   "/home": home,
-  "/fav": splash,
+  "/fav": favouriteList,
 })
