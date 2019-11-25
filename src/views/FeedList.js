@@ -1,14 +1,16 @@
 var m = require("mithril")
 var Feed = require("../models/Feed")
+var FeedBoxView = require("./FeedBox").view
 
 var FeedList = {
   oninit: Feed.loadList,
+  channel: Feed,
+  count: 0,
+
   view: function() {
     return m(".feed-list", [
-      m('label', Feed.isFetched===true?Feed.channelTitle:"Loading..."),
-      Feed.list.map(function(feed) {
-        return m(".feed-list-item", feed.title)
-      })
+      m('label', FeedList.channel.isFetched === true? FeedList.channel.channelTitle:"Loading..."),
+      FeedList.channel.list.map(FeedBoxView)
     ])
   }
 }

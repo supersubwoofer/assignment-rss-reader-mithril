@@ -1,7 +1,9 @@
 var m = require("mithril")
 var Config = require("../config")
-var parseXML = require("../utils/XMLHelpers").parseXML
-var getNodeValueByName = require("../utils/XMLHelpers").getNodeValueByName
+var parseXML = require("../utils/ParserHelpers").XMLHelpers.parse
+var getNodeValueByName = require("../utils/ParserHelpers").XMLHelpers.getNodeValueByName
+var getWholeTextByName = require("../utils/ParserHelpers").XMLHelpers.getWholeTextByName
+var getImgSrcAttribute = require("../utils/ParserHelpers").HTMLHelpers.getImgSrcAttribute
 
 var Feed = {
     channelTitle: '',
@@ -40,11 +42,13 @@ function getFeeds(xmlDoc) {
   var items = xmlDoc.getElementsByTagName("item")
   var list = []
   for(i=0; i< items.length; i++) {
+    var descriptionText = getWholeTextByName("description", items[i])
     list.push({
       guid: getNodeValueByName("guid", items[i]),
       title: getNodeValueByName("title", items[i]),
       link: getNodeValueByName("link", items[i]),
-      description: getNodeValueByName("description", items[i]),
+      description: descriptionText,
+      imgSrc: getImgSrcAttribute(descriptionText)
     })
   }
   return list
