@@ -7,7 +7,7 @@ var FeedList = {
     return m(".feed-list", [
       m('label', Feed.isFetched===true?Feed.channelTitle:"Loading..."),
       Feed.list.map(function(feed) {
-        return m(".feed-list-item", feed.guid + " " + feed.title)
+        return m(".feed-list-item", feed.title)
       })
     ])
   }

@@ -1,5 +1,7 @@
 var m = require("mithril")
 var Config = require("../config")
+var parseXML = require("../utils/XMLHelpers").parseXML
+var getNodeValueByName = require("../utils/XMLHelpers").getNodeValueByName
 
 var Feed = {
     channelTitle: '',
@@ -17,24 +19,23 @@ var Feed = {
       .then(function(response) {
         return parseXML(response.body)
       })
-      .then(function(xmlDoc) {
-        Feed.channelTitle = getChannelTitle(xmlDoc)
-        Feed.channelDescription = getChannelDescription(xmlDoc)
-        Feed.channelLink = getChannelLink(xmlDoc)
-        Feed.list = getFeeds(xmlDoc)
-        Feed.isFetched = true
-      })
+      .then(
+        populateFeedModel
+      )
       .catch(function(e) {
-          console.log(`fetch feeds error: ${e.message}`)
+        console.log(`fetch feeds error: ${e.message}`)
       })
     },
 }
 
-function parseXML(data) {
-  var parser = new DOMParser()
-  var  xmlDoc = parser.parseFromString(data,"text/xml")
-  return xmlDoc
+function populateFeedModel(xmlDoc) {
+  Feed.channelTitle = getChannelTitle(xmlDoc)
+  Feed.channelDescription = getChannelDescription(xmlDoc)
+  Feed.channelLink = getChannelLink(xmlDoc)
+  Feed.list = getFeeds(xmlDoc)
+  Feed.isFetched = true
 }
+
 function getFeeds(xmlDoc) {
   var items = xmlDoc.getElementsByTagName("item")
   var list = []
@@ -56,9 +57,6 @@ function getChannelLink(xmlDoc) {
 }
 function getChannelDescription(xmlDoc) {
   return getNodeValueByName("description", xmlDoc)
-}
-function getNodeValueByName(name, xmlNode) {
-  return xmlNode.getElementsByTagName(name)[0].childNodes[0].nodeValue
 }
 
 module.exports = Feed
