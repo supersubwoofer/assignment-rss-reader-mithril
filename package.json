@@ -13,11 +13,11 @@
   "license": "ISC",
   "devDependencies": {
     "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.10"
-  },
-  "dependencies": {
-    "mithril": "^2.0.4",
+    "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.9.0",
     "webpack-livereload-plugin": "^2.2.0"
+  },
+  "dependencies": {
+    "mithril": "^2.0.4"
   }
 }
