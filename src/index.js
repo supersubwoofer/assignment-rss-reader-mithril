@@ -1,3 +1,10 @@
 var m = require("mithril")
-var MyComponent = require("./modules/mycomponent")
-m.render(document.getElementById('main-content'), MyComponent.view())
+
+var home = require("./modules/home")
+var splash = require("./modules/splash")
+
+//m.mount(document.getElementById('main-content'), home)
+m.route(document.getElementById('main-content'), "/home", {
+  "/home": home,
+  "/fav": splash,
+})
