@@ -1,10 +1,10 @@
 var m = require("mithril")
 
-const CORS_PROXY = 'https://cors-anywhere.herokuapp.com/'
+const CORS_PROXY = 'https://cors-anywhere-supersubwoofer.herokuapp.com/'
 const END_POINT = 'https://www.concordia.ca/content/concordia/en/news/archive/_jcr_content/content-main/news_list.xml'
 
 var Feed = {
-    channelTitle: '',
+    channelTitle: 'Loading...',
     channelLink: '',
     channelDescription: '',
     list: [],
@@ -19,22 +19,11 @@ var Feed = {
       })
       .then(function(xmlDoc) {
         Feed.channelTitle = getChannelTitle(xmlDoc)
+        getFeeds(xmlDoc)
       })
       .catch(function(e) {
           console(`fetch feeds error: ${e.message}`)
       })
-      /*  .then(function(response) {
-        return response.text()
-      })
-      .then(function(data) {
-        return parseXML(data)
-      })
-      .then(function(xmlDoc) {
-        return getChannelTitle(xmlDoc)
-      })
-      .then(function(title) {
-        Feed.channelTitle = 'title';
-      }) */
     },
 }
 
@@ -45,8 +34,8 @@ function parseXML(data) {
 }
 function getFeeds(xmlDoc) {
   var items = xmlDoc.getElementsByTagName("item")
-  console.log(items[0])
-  return xmlDoc
+  console.log(items)
+  return 'items'
 }
 function getChannelTitle(xmlDoc) {
   var channelTitle = xmlDoc.getElementsByTagName("title")
