@@ -4,7 +4,7 @@ It is an assignment to implement a simple RSS reader.
 
 [DEMO](http://supersubwoofer.github.io/myblog/rssreader)
 
-Please check the demo. For checking the app in local machine, please start the app by "npm install && npm start".
+Please check the demo. For checking the app in local machine, please start the app by "npm install & npm start".
 Browser security may block the app accessing cookie if directly open the index.html file without running a web server.
 
 
