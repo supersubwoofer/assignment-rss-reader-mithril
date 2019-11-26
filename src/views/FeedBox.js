@@ -7,7 +7,7 @@ var FeedBox = {
       m(".card mb-4 shadow-sm", {
           "data-toggle": "modal",
           "data-target": "#modalCenter",
-          onclick: function(e){EventHandlers.showNewsOnModal(e, feed)}}, [
+          onclick: function(e){EventHandlers.showNewsOnModal(e, feed.title, feed.guid)}}, [
         m("img", {
           src: feed.imgSrc,
           class: "bd-placeholder-img card-img-top",
