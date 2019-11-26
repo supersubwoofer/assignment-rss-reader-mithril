@@ -35,7 +35,6 @@ The Application shell is defined in index.html. Bootstrap and JQuery are used on
 ## Getting started
 
   copy or clone this [repository](https://github.com/supersubwoofer/assignment-rss-reader-mithril.git)
-* 
 
 ### Install
 
