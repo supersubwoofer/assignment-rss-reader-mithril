@@ -9,8 +9,8 @@ var Feed = {
     channelTitle: '',
     channelLink: '',
     channelDescription: '',
-    list: [],
 
+    list: [],
     isFetched: false,
     loadList: function() {
         return m.request({
