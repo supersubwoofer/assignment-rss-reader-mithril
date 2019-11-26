@@ -1,13 +1,19 @@
 var m = require("mithril")
 var Feed = require("../models/Feed")
 var FeedBoxView = require("./FeedBox").view
+var Favs = require("../models/Favourite")
 
 var FeedList = {
-  oninit: Feed.loadList,
+  oninit: function(vnode) {
+    Feed.loadList()
+    Favs.loadList()
+    //console.log("initialize component")
+  },
 
   view: function() {
+    //console.log(`feedlist view: ${Favs.list.length}`)
     return m(".feed-list", [
-      m('label', Feed.isFetched === true? Feed.channelTitle:"Loading..."),
+      m('h1', Feed.isFetched === true? Feed.channelTitle:"Loading..."),
       Feed.list.map(FeedBoxView)
     ])
   }
