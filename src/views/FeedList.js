@@ -4,16 +4,13 @@ var FeedBoxView = require("./FeedBox").view
 var Favs = require("../models/Favourite")
 
 var FeedList = {
-  isAlreadyExcuted: false,
+  isAlreadySetFavourite: false,
   oninit: function(vnode) {
     Feed.loadList()
     Favs.loadList()
   },
-  view: function() {
-
-    if(!FeedList.isAlreadyExcuted && Feed.list!==null && Feed.list.length>0) {
-      console.log(`feedlist view: ${Feed.list.length}`)
-      console.log(`favlist view: ${Favs.list.length}`)
+  setFavourite: function() {
+    if(!FeedList.isAlreadySetFavourite && Feed.list!==null && Feed.list.length>0) {
       if(Favs.list!==null){
         Favs.list.forEach(element => {
           var feedIndex = -1;
@@ -24,11 +21,13 @@ var FeedList = {
             Feed.list[feedIndex].isFavourite = true;
           }
         })
-        console.log("fav set")
       }
-      FeedList.isAlreadyExcuted = true;
+      FeedList.isAlreadySetFavourite = true;
     }
+  },
+  view: function() {
 
+    FeedList.setFavourite()
     return m(".feed-list", [
       m('h1', Feed.isFetched === true? Feed.channelTitle:"Loading..."),
       m(".row", Feed.list.map(FeedBoxView))
