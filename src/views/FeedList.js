@@ -14,7 +14,7 @@ var FeedList = {
     //console.log(`feedlist view: ${Favs.list.length}`)
     return m(".feed-list", [
       m('h1', Feed.isFetched === true? Feed.channelTitle:"Loading..."),
-      Feed.list.map(FeedBoxView)
+      m(".row", Feed.list.map(FeedBoxView))
     ])
   }
 }
