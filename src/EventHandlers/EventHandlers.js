@@ -20,6 +20,14 @@ var EventHandlers = {
     favCookieHelper.add(feed.guid, feed.title))
     ev.stopPropagation()
     feed.isFavourite = !feed.isFavourite
+  },
+  removeFavourite: function(e, favourite, favouriteList) { 
+    favCookieHelper.removeById(favourite.guid)
+
+    var filtered = favouriteList.filter(function(value){
+      return value.guid !== favourite.guid
+    })
+    return filtered
   }
 }
 

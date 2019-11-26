@@ -1,6 +1,6 @@
 var m = require("mithril")
 var Favourite = require("../models/Favourite")
-var favCookieHelper = require("../utils/FavouriteCookieHelpers")
+var EventHandlers = require("../EventHandlers/EventHandlers")
 
 var FavouriteList = {
   oninit: Favourite.loadList,
@@ -14,22 +14,13 @@ var FavouriteList = {
         return m(".fav", fav.title, [
           m("span", {
             class: "icon oi oi-heart favour",
-            onclick: function(e){eHandler.removeFavourite(e, fav, Favourite.list)}
+            onclick: function(e){
+              Favourite.list = EventHandlers.removeFavourite(e, fav, Favourite.list)
+            }
           })
         ])
       })
     ])
-  }
-}
-
-var eHandler = {
-  removeFavourite: function(e, favourite, favouriteList) { 
-    favCookieHelper.removeById(favourite.guid)
-
-    var filtered = favouriteList.filter(function(value){
-      return value.guid !== favourite.guid
-    })
-    favouriteList = filtered
   }
 }
 
