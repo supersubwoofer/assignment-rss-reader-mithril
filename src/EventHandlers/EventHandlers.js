@@ -3,9 +3,6 @@ var favCookieHelper = require("../utils/FavouriteCookieHelpers")
 
 var EventHandlers = {
   showNewsOnModal: function(ev, feedTitle, feedLink) { 
-    console.log("show modal click");
-    console.log(feedTitle);
-    console.log(feedLink);
     document.getElementById("exampleModalCenterTitle").innerText = feedTitle
     
     document.getElementById("news-modal-news").remove()
