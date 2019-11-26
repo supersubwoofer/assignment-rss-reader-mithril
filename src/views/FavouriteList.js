@@ -13,19 +13,23 @@ var FavouriteList = {
         
         return m(".fav", fav.title, [
           m("span", {
-            class: "icon favour oi oi-heart",
-            onclick: function() { 
-              favCookieHelper.removeById(fav.guid)
-
-              var filtered = Favourite.list.filter(function(value){
-                return value.guid !== fav.guid
-              })
-              Favourite.list = filtered
-            }
+            class: "icon oi oi-heart favour",
+            onclick: function(e){eHandler.removeFavourite(e, fav, Favourite.list)}
           })
         ])
       })
     ])
+  }
+}
+
+var eHandler = {
+  removeFavourite: function(e, favourite, favouriteList) { 
+    favCookieHelper.removeById(favourite.guid)
+
+    var filtered = favouriteList.filter(function(value){
+      return value.guid !== favourite.guid
+    })
+    favouriteList = filtered
   }
 }
 
