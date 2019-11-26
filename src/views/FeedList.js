@@ -4,7 +4,7 @@ var FeedBoxView = require("./FeedBox").view
 var Favs = require("../models/Favourite")
 
 var FeedList = {
-  isAlreadyExcuted: true,
+  isAlreadyExcuted: false,
   oninit: function(vnode) {
     Feed.loadList()
     Favs.loadList()
